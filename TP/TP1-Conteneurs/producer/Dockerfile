@@ -1,10 +1,14 @@
-FROM python:3.8-slim
+FROM python:3.8.12-slim
 
 WORKDIR /app
 
-COPY producer.py requirements.txt ./
+RUN useradd -m customuser
 
-RUN pip install -r requirements.txt
+USER customuser
+
+COPY --chown=customuser:customuser producer.py requirements.txt ./
+
+RUN pip install --no-cahce-dir -r requirements.txt
 
 EXPOSE 5000
 
