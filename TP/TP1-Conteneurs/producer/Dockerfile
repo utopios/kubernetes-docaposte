@@ -8,7 +8,7 @@ USER customuser
 
 COPY --chown=customuser:customuser producer.py requirements.txt ./
 
-RUN pip install --no-cahce-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 5000
 
