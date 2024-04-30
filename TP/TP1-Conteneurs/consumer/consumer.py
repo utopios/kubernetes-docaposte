@@ -8,6 +8,8 @@ def show_temperature():
     # Envoyer une requête GET au producteur pour obtenir la température
     response = requests.get('http://producer:5000/temperature')
     temperature = response.json()['temperature']
+    with open('/app/data/temperatures.txt', 'a') as file:
+        file.write(f"{temperature}\n")
     return f"Current Temperature: {temperature}"
 
 if __name__ == '__main__':
