@@ -1,0 +1,9 @@
+include:
+  - docker-compose-db.yml
+services:
+  web:
+    extends:
+      file: docker-compose-common.yml
+      service: web
+    ports:
+      - "8080:80"

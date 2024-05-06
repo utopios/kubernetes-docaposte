@@ -1,21 +1,43 @@
 services:
   web:
     image: nginx
+    deploy:
+      replicas: 3
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 128M
+        reservations:
+          cpus: '0.25'
+          memory: 20M
     # build:
     #   context: .
     #   dockerfile: Dockerfile
     ports:
-      - "80:80"
+      - "8080-8090:80"
     # volumes:
     #   - "./html:/usr/share/nginx/html"
     depends_on:
       - db
+        #condition: service_healthy
+        #restart: true
+  
+
+
+    environment:
+      ADDRESS_POSTGRES: db
   db:
     image: "postgres:latest"
     environment:
-      POSTGRES_DB: exempledb
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    # healthcheck:
+    #   test: ["CMD-SHELL", "pg_isready -U user -d exempledb"]
+    #   interval: 1m30s
+    #   timeout: 30s
+    #   retries: 5
+    #   start_period: 30s
     volumes:
       - "db-data:/usr/postgres/data"
 volumes:
