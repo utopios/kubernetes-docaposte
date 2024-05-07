@@ -22,3 +22,9 @@ kind create cluster --name demo-cluster --config cluster-kind.yml
 kubectl create -f first-pod.yml
 ```
 
+- DaemonSet
+- StateFulSet
+- CronJob
+- Deployment
+    - Replicaset
+        - POD
