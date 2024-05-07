@@ -16,3 +16,9 @@ mv ./kind /usr/bin/kubectl
 ```bash
 kind create cluster --name demo-cluster --config cluster-kind.yml
 ```
+
+### Création d'un pod
+```bash
+kubectl create -f first-pod.yml
+```
+

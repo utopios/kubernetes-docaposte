@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: first-replicaset
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      name: myapp
+  template:
+    ## la définition de pod
+    metadata:
+      name: myapp
+      labels:
+        name: myapp
+    spec:
+      containers:
+        - name: container-nginx
+          image: nginx
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:    
+            - containerPort: 80
