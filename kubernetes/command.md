@@ -18,7 +18,7 @@ kind create cluster --name demo-cluster --config cluster-kind.yml
 ```
 
 ### Déplacer une image docker vers un cluster kind
-kind load docker-image <nom_image>
+kind load docker-image <nom_image> --name <nom_cluster>
 
 ### Création d'un pod
 ```bash

@@ -1,10 +1,5 @@
 # Etape 1
 - Créer un cluser kind, minikube,...
-```
-
-```
-
-
 
 # Etape 2
 - Construire l'image et envoyer l'image dans le cluster
