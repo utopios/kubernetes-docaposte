@@ -9,13 +9,16 @@ mv ./kind /usr/bin/kind
 ```bash
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 chmod +x ./kubectl
-mv ./kind /usr/bin/kubectl
+mv ./kubectl /usr/bin/kubectl
 ```
 
 ### Création d'un cluster avec kind
 ```bash
 kind create cluster --name demo-cluster --config cluster-kind.yml
 ```
+
+### Déplacer une image docker vers un cluster kind
+kind load docker-image <nom_image>
 
 ### Création d'un pod
 ```bash
