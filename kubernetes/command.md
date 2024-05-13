@@ -40,3 +40,9 @@ curl http://service-a => pod avec le selector du service => redirection du trafi
 
 kubectl port-forward service/<nom_service> <port_host>:<port_service>
 
+## NodePort
+
+Pod A => cluster A => utiliser l'adresse ip d'un node du cluster B 
+
+
+Pod B => cluster B => service de type nodePort associé au POD B
