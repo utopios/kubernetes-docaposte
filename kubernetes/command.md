@@ -28,3 +28,15 @@ kubectl create -f first-pod.yml
 - Deployment
     - Replicaset
         - POD
+
+
+## Utilisation du service
+
+curl http://service-a => pod avec le selector du service => redirection du trafic vers le pod
+
+## Port forward
+
+- Permet de faire un map entre l'host et un service clusterIP en mode dev
+
+kubectl port-forward service/<nom_service> <port_host>:<port_service>
+
