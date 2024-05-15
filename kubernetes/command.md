@@ -49,3 +49,34 @@ Pod A => cluster A => utiliser l'adresse ip d'un node du cluster B
 
 
 Pod B => cluster B => service de type nodePort associé au POD B
+
+## Ingress 
+
+- Des ressources pour gérer le routage du trafic externe vers le cluster.
+
+    - Objet Ingress
+    - Ingress Controller, Nginx, Traefik,....
+
+- Des règles Ingress
+
+- Hostname vers le cluster
+- Path vers différents services
+
+- Configuration
+    1. Installer un Ingress controller
+    ```bash
+    kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.41.0/deploy/static/provider/cloud/deploy.yaml
+    ``` 
+    2. Créer un objet Ingress
+
+
+## NetworkPolicy
+
+
+SERVICEA (CLUSTER IP avec PORT 80)=>POD A 
+
+N'importe pod sur le cluster pourra communiquer avec le POD A
+
+POD N => http://serviceA
+
+POD B, POD C
