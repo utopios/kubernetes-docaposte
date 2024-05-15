@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: policy-redis
+  namespace: tp-kubernetes
+spec:
+  podSelector:
+    matchLabels:
+      role: redis
+  policyTypes:
+    - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          role-redis: client-redis
+    ports:
+      - protocol: TCP
+        port: 5432
