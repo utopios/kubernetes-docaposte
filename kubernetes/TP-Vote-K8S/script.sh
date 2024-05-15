@@ -39,3 +39,4 @@ kubectl create -f sources/k8s/deployments/worker-deployment.yml
 kubectl create -f sources/k8s/deployments/result-deployment.yml
 kubectl create -f sources/k8s/networkpolicies/policy-postgres.yml
 kubectl create -f sources/k8s/networkpolicies/policy-redis.yml
+
