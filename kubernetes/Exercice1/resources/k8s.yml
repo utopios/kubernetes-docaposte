@@ -4,6 +4,9 @@ metadata:
   name: webapp
 spec:
   replicas: 3
+  strategy:
+    #type: Recreate
+    type: RollingUpdate
   selector:
     matchLabels:
       name: webapp
@@ -15,7 +18,7 @@ spec:
     spec:
       containers:
         - name: container-webapp
-          image: webapp
+          image: webapp:v3
           imagePullPolicy: Never
           resources:
             limits:
@@ -36,4 +39,4 @@ spec:
   ports:
   - port: 80
     targetPort: 80
-    nodePort: 30005
+    nodePort: 30010

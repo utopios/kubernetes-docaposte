@@ -9,7 +9,7 @@ const mysql = require('mysql')
 // })
 app.get('/', (req, res) => {
 
-    res.end("Hello from api")
+    res.end("Hello from api v3")
 })
 
 app.listen(80, () => {
