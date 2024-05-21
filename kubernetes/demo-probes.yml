@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-probes
+spec:
+  replicas: 3
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      name: myapp
+  template:
+    metadata:
+      name: myapp
+      labels:
+        name: myapp
+    spec:
+      containers:
+      - name: advanced-deployment-container
+        image: httpd:2.4.48
+        imagePullPolicy: IfNotPresent
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          periodSeconds: 5
+        
+        # startupProbe:
+        #   httpGet:
+        #     path: /
+        #     port: 80
+        #   periodSeconds: 5
+
+        # livenessProbe:
+        #   # httpGet:
+        #   #   path: /live
+        #   #   port: 80
+        #   # periodSeconds: 5
+        #   exec:
+        #     command:
+        #       - "cat index2.html; exit -1;"
+        #   # tcpSocket:
+        #   #   port: 4000
+        #   periodSeconds: 5
+          initialDelaySeconds: 10
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+        ports:
+          - containerPort: 80
