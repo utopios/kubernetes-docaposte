@@ -5,3 +5,4 @@ metadata:
   namespace: tp-kubernetes
 data:
   POSTGRE_USER: postgres
+  
