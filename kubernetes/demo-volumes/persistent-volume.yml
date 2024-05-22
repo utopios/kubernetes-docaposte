@@ -9,3 +9,8 @@ spec:
     - ReadWriteOnce
   hostPath:
     path: /mnt/data
+status:
+  phase: Bound
+  claimRef:
+    namespace: default
+    name: example-pvc
