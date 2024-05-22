@@ -13,6 +13,13 @@ spec:
       labels:
         app: mysql
     spec:
+      initContainers:
+      - name: init-mysql
+        image: busybox
+        command: ['sh', '-c', 'rm -rf /var/lib/mysql/*']
+        volumeMounts:
+        - name: mysql-storage
+          mountPath: "/var/lib/mysql"
       containers:
       - name: mysql
         image: mysql
@@ -25,7 +32,6 @@ spec:
           value: "user"
         - name: MYSQL_PASSWORD
           value: "password"
-        command: ["/bin/bash", "-c", "if [ -d /var/lib/mysql ]; then echo 'MySQL data directory already initialized'; else echo 'Initializing MySQL data directory'; mysqld --initialize-insecure; fi && exec mysqld"]
         volumeMounts:
         - mountPath: "/var/lib/mysql"
           name: mysql-storage
