@@ -15,14 +15,27 @@ spec:
     spec:
       initContainers:
       - name: init-mysql
-        image: busybox
-        command: ['sh', '-c', 'rm -rf /var/lib/mysql/*']
+        image: mysql:8.0
+        command:
+          - sh
+          - -c
+          - |
+            if [ ! -d "/var/lib/mysql/mysql" ]; then
+              echo "Initializing MySQL data directory";
+              mysqld --initialize-insecure --user=mysql --datadir=/var/lib/mysql;
+            else
+              echo "MySQL data directory already initialized";
+            fi;
         volumeMounts:
         - name: mysql-storage
-          mountPath: "/var/lib/mysql"
+          mountPath: /var/lib/mysql
       containers:
       - name: mysql
-        image: mysql
+        image: mysql:8.0
+        resources:
+          limits:
+            cpu: "100m"
+            memory: "128Mi"
         env:
         - name: MYSQL_ROOT_PASSWORD
           value: "password"
@@ -32,13 +45,20 @@ spec:
           value: "user"
         - name: MYSQL_PASSWORD
           value: "password"
+        command:
+          - sh
+          - -c
+          - |
+            mysqld --user=mysql --datadir=/var/lib/mysql --initialize-insecure;
+            mysqld --user=mysql --skip-networking & sleep 10;
+            mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'password';";
+            mysqladmin shutdown;
+            exec mysqld --user=mysql --datadir=/var/lib/mysql;
         volumeMounts:
         - mountPath: "/var/lib/mysql"
           name: mysql-storage
-        resources:
-            limits:
-              memory: "128Mi"
-              cpu: "500m"
+        ports:
+        - containerPort: 3306
       volumes:
       - name: mysql-storage
         persistentVolumeClaim:
