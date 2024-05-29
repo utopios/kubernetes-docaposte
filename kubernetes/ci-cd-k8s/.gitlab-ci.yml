@@ -1,0 +1,22 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  KUBECONFIG: "/root/.kube/config"
+
+before_script:
+  - export KUBECONFIG=/home/$USER/.kube/config
+  - kubectl config use-context kind-gitlab-kind
+
+build:
+  stage: build
+  script:
+    - docker build -t myapp:latest .
+    - kind load docker-image myapp:latest --name gitlab-kind
+
+deploy:
+  stage: deploy
+  script:
+    - kubectl apply -f k8s/deployment.yml
+    - kubectl apply -f k8s/service.yml
