@@ -108,7 +108,7 @@ data:
             - jaeger
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: DaemonSet
 metadata:
   name: prometheus
   labels:
